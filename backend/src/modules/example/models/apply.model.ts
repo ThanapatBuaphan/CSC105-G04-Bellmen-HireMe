@@ -1,3 +1,5 @@
+import { prisma } from "../../../db";
+
 export interface ApplyModel {
   id: number;
 
@@ -37,3 +39,32 @@ export interface ApplyModel {
     createdAt: string;
   };
 }
+
+export const createApply = async (
+  userId: number,
+  companyId: number,
+  postId: number,
+  message: string
+) => {
+
+  const existingApply = await prisma.apply.findFirst({
+    where: {
+      userId,
+      postId,
+    },
+  });
+
+  if (existingApply) {
+    throw new Error("You already applied to this job");
+  }
+
+  return prisma.apply.create({
+    data: {
+      userId,
+      companyId,
+      postId,
+      message,
+      status: "pending",
+    },
+  });
+};
