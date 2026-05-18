@@ -28,6 +28,8 @@ model User {
 
   educations Education []
   workexperinces workExperience []
+  locationId     Int?
+  location       Location? @relation(fields: [locationId], references: [id])
 
   members CompanyMembers[]
 }
@@ -39,12 +41,15 @@ model Company {
   companyName     String   @unique
   logo            String?
   type            String?
+  description     String?
   
 
   createdAt       DateTime
   updatedAt       DateTime @updatedAt
 
   members  CompanyMembers[]
+  locationId      Int?
+  location        Location? @relation(fields: [locationId], references: [id])
   // posts    Post[]
 }
 
@@ -87,9 +92,25 @@ model workExperience {
   workinghere       Boolean @default(false)
   joinedAt          DateTime
   endedAt           DateTime?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt         DateTime @default(now())
+}
+
+model Location {
+  id                Int     @id @default(autoincrement())
+  name              String?
+  address           String?
+  city              String?
+  country           String?
+  postalCode        String?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  companies Company[]
+
+  users User[]
 }
 
 // model Post {
