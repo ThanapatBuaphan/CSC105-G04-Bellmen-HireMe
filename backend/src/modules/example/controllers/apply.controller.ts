@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createApply } from "../models/apply.model";
+import { createApply, getIncomingApplications } from "../models/apply.model";
 
 export const createApplyController = async (req: Request, res: Response) => {
   try {
@@ -15,7 +15,7 @@ export const createApplyController = async (req: Request, res: Response) => {
       Number(userId),
       Number(companyId),
       Number(postId),
-      message
+      message,
     );
 
     return res.status(201).json({
@@ -25,9 +25,28 @@ export const createApplyController = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({
       message:
-        error instanceof Error
-          ? error.message
-          : "Failed to apply for this job",
+        error instanceof Error ? error.message : "Failed to apply for this job",
+    });
+  }
+};
+
+export const getIncomingApplicationsController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const userId = Number(req.params.userId);
+
+    const applications = await getIncomingApplications(userId);
+
+    return res.status(200).json({
+      message: "Applicatins fetched successfully",
+      data: applications,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error ? error.message : "Failed to fetch applications",
     });
   }
 };

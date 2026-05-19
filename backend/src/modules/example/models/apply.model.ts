@@ -44,9 +44,8 @@ export const createApply = async (
   userId: number,
   companyId: number,
   postId: number,
-  message: string
+  message: string,
 ) => {
-
   const existingApply = await prisma.apply.findFirst({
     where: {
       userId,
@@ -65,6 +64,21 @@ export const createApply = async (
       postId,
       message,
       status: "pending",
+    },
+  });
+};
+
+export const getIncomingApplications = async (userId: number) => {
+  return prisma.apply.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      companyhire: true,
+      post: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 };

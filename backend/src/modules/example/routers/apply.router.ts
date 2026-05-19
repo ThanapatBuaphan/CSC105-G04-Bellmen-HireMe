@@ -1,8 +1,12 @@
 import express from "express";
-import { createApplyController } from "../controllers/apply.controller";
+import {
+  createApplyController,
+  getIncomingApplicationsController,
+} from "../controllers/apply.controller";
 
 const router = express.Router();
 
 router.post("/", createApplyController);
+router.get("/user/:userId", getIncomingApplicationsController);
 
 export default router;
