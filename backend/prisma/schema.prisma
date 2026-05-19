@@ -30,7 +30,7 @@ model User {
   gender            String
   avatar            String?
   resume            String?
-  phoneNumber       String   @unique
+  phoneNumber       String? @unique
   bio               String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -53,7 +53,7 @@ model Company {
   logo            String?
   type            String?
   description     String?
-  
+  phoneNumber       String? @unique
 
   createdAt       DateTime
   updatedAt       DateTime @updatedAt
