@@ -1,4 +1,4 @@
-# prehack-hireme
+# prehack-bellmen
 # Recruitment & Career Development Application
 # Scope
 This project is a website that makes finding and hiring for jobs easy. Companies can post jobs and see people who apply. Job seekers can search for jobs and apply quickly using their profile and resume. It is a simple tool to help companies hire the right people and help users find the proper jobs.
@@ -11,7 +11,7 @@ This project is a website that makes finding and hiring for jobs easy. Companies
 6) Company editing/deleting post => Companies can either edit or delete their posts.
 7) User/Company Profile Edit => Both companies and users can edit their profiles to better represent themselves/their companies.
 # MEMBER 
- 1. 68130500820 MR.Pittinat Danubumrungsart
- 2. 68130500861 MR.Thanakrit Mararam
- 3. 68130500862 MR.Thanapat Buaphan
- 4. 68130500866 MR.Ponchayadit Khochitmet
+ 1. 68130500820 MR.Pittinat Danubumrungsart (Search and filter by keywords/jobs, Easy Application)
+ 2. 68130500861 MR.Thanakrit Mararam (User/Company Profile, User/Company Profile Edit)
+ 3. 68130500862 MR.Thanapat Buaphan (Company acceptance, Easy Application)
+ 4. 68130500866 MR.Ponchayadit Khochitmet (Company posting, Company editing/deleting post)
