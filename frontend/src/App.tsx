@@ -12,7 +12,7 @@ import CreateAcc2user from "./pages/CreateAcc2user";
 import CreateAcc3user from "./pages/CreateAcc3user";
 import NotFound from "./pages/NotFound";
 
-import ComHome from "./pages/CompanySide/comHome";
+import ComHome from "./modules/ืSearchAndFilter/pages/comHome";
 import ComCreatePost from "./pages/CompanySide/comCreatePost";
 import ComMyPost from "./pages/CompanySide/comMyPost";
 import ComMyPostEdit from "./pages/CompanySide/comMyPostEdit";

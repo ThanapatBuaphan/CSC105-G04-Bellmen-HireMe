@@ -10,7 +10,7 @@ import CreateAcc3com from "./pages/CreateAcc3com";
 import CreateAcc3user from "./pages/CreateAcc3user";
 
 //Company
-import ComHome from "./pages/CompanySide/comHome";
+import ComHome from "./modules/ืSearchAndFilter/pages/comHome";
 import ComMyPost from "./pages/CompanySide/comMyPost";
 import ComApplicants from "./pages/CompanySide/comApplicants";
 import ComCreatePost from "./pages/CompanySide/comCreatePost";
