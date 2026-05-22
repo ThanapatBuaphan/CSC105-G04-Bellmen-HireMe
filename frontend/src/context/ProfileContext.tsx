@@ -51,7 +51,7 @@ const ProfileContext = createContext<ProfileContextType | null>(null);
 export function ProfileProvider({ children }: { children: ReactNode }) {
   const DEVELOPMENT_FALLBACK_COMPANY_PROFILE: UserProfile = {
     accountId: 1,
-    companyId: 1,
+    companyId: 2,
     role: "company",
     email: "pure@gmail.com",
     companyName: "Pure",
@@ -60,11 +60,11 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   const [profile, setProfileState] = useState<UserProfile | null>(() => {
     const stored = authService.getStoredUser();
 
-    if (stored) return stored;
-
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV && !authService.isLoggedIn()) {
       return DEVELOPMENT_FALLBACK_COMPANY_PROFILE;
     }
+
+    if (stored) return stored;
 
     return null;
   });

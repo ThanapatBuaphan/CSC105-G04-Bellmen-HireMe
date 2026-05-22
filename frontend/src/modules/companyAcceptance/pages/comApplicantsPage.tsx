@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useProfile } from "../../../context/ProfileContext";
+import { useDrawer } from "../../../context/DrawerContext";
 
 import {
   getIncomingApplicants,
@@ -23,19 +24,7 @@ function formatStatus(status: string): ApplicantStatus {
     return "Rejected";
   }
 
-  if (status.toLowerCase() === "applied") {
-    return "Applied";
-  }
-
   return "Pending";
-}
-
-function getResumeFileName(resume?: string | null) {
-  if (!resume) {
-    return "No resume uploaded";
-  }
-
-  return resume.split(/[\\/]/).pop() ?? resume;
 }
 
 function formatApplicant(apply: IncomingApplicantApply): Applicant {
@@ -65,6 +54,7 @@ function formatApplicant(apply: IncomingApplicantApply): Applicant {
 
 export default function ComApplicants() {
   const { profile } = useProfile();
+  const { setOpen } = useDrawer();
   const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [selectedApplicantId, setSelectedApplicantId] = useState<
     number | null
@@ -88,7 +78,7 @@ export default function ComApplicants() {
         setLoading(true);
         setError(null);
 
-        const companyId = profile?.companyId ?? 1;
+        const companyId = profile?.companyId ?? 2;
 
         const incomingApplicants = await getIncomingApplicants(companyId);
 
@@ -150,16 +140,21 @@ export default function ComApplicants() {
     <main className="min-h-screen overflow-x-hidden bg-[#f4f7fb] px-2.5 py-3 sm:px-4 sm:py-5 lg:flex lg:h-screen lg:min-h-0 lg:overflow-hidden lg:px-8 lg:py-7">
       <section className="mx-auto grid min-h-0 w-full min-w-0 gap-3 border border-[#e5e7eb] bg-white p-3 shadow-[0_1px_3px_rgba(15,23,42,0.18)] sm:gap-5 sm:p-5 lg:h-full lg:grid-cols-[minmax(300px,0.98fr)_minmax(360px,1.02fr)] lg:gap-6 lg:overflow-hidden lg:p-6">
         <div
-          className={`h-full min-h-0 min-w-0 flex-col border border-[#edf0f4] px-2.5 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.16)] sm:min-h-[420px] sm:px-4 sm:py-4 lg:flex lg:min-h-0 ${
-            isDetailOpen ? "hidden" : "flex"
-          }`}
+          className={`h-full min-h-0 min-w-0 flex-col border border-[#edf0f4] px-2.5 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.16)] sm:min-h-[420px] sm:px-4 sm:py-4 lg:flex lg:min-h-0 ${isDetailOpen ? "hidden" : "flex"
+            }`}
         >
           <div className="grid grid-cols-[36px_1fr_36px] items-center pb-3 sm:pb-4 lg:block">
-            <img
-              src={MenuBar}
-              alt="Menu"
-              className="h-7 w-7 object-contain lg:hidden"
-            />
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="lg:hidden"
+            >
+              <img
+                src={MenuBar}
+                alt="Menu"
+                className="h-7 w-7 object-contain"
+              />
+            </button>
             <h1 className="text-center font-serif text-[17px] font-semibold text-black lg:px-1 lg:text-left">
               Applicants
             </h1>
