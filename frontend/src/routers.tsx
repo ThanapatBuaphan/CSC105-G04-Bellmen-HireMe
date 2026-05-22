@@ -12,7 +12,7 @@ import CreateAcc3user from "./pages/CreateAcc3user";
 //Company
 import ComHome from "./pages/CompanySide/comHome";
 import ComMyPost from "./pages/CompanySide/comMyPost";
-import ComApplicants from "./pages/CompanySide/comApplicants";
+import ComApplicants from "./modules/companyAcceptance/pages/comApplicantsPage";
 import ComCreatePost from "./pages/CompanySide/comCreatePost";
 import ComMyPostEdit from "./pages/CompanySide/comMyPostEdit";
 import ComProfile from "./modules/Profile/pages/comProfile";
