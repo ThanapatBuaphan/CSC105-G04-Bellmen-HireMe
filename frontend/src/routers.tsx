@@ -10,7 +10,8 @@ import CreateAcc2user from "./pages/CreateAcc2user";
 import CreateAcc3com from "./pages/CreateAcc3com";
 import CreateAcc3user from "./pages/CreateAcc3user";
 
-import ComHome from "./pages/CompanySide/comHome";
+//Company
+import ComHome from "./modules/ืSearchAndFilter/pages/comHome";
 import ComMyPost from "./pages/CompanySide/comMyPost";
 import ComApplicants from "./modules/companyAcceptance/pages/comApplicantsPage";
 import ComCreatePost from "./pages/CompanySide/comCreatePost";
