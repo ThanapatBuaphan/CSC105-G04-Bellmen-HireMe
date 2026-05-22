@@ -5,7 +5,7 @@ import { userService } from "../../../services/user.service";
 import api, { publicApi } from "../../../services/api";
 import ProfileBanner from "../components/ProfileBanner";
 import PageHeader from "../../../components/PageHeader";
-import type { CompanyMember, CompanyPost } from "../types/profile.types";
+import type { CompanyMember } from "../types/profile.types";
 
 export default function ComProfile() {
   const { id } = useParams<{ id: string }>();

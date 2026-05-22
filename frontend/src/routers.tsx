@@ -12,13 +12,14 @@ import CreateAcc3user from "./pages/CreateAcc3user";
 
 import ComHome from "./pages/CompanySide/comHome";
 import ComMyPost from "./pages/CompanySide/comMyPost";
-import ComApplicants from "./pages/CompanySide/comApplicants";
+import ComApplicants from "./modules/companyAcceptance/pages/comApplicantsPage";
 import ComCreatePost from "./pages/CompanySide/comCreatePost";
 import ComMyPostEdit from "./pages/CompanySide/comMyPostEdit";
 import ComProfile from "./modules/Profile/pages/comProfile";
 
-import JobHome from "./pages/JobSeekerSide/jobHome";
-import JobApplicants from "./pages/JobSeekerSide/jobApplicants";
+//Job seeker
+import JobHome from "./modules/easyApplication/pages/jobHomePage";
+import JobApplicants from "./modules/easyApplication/pages/jobApplicantsPage";
 import JobProfile from "./modules/Profile/pages/jobProfile";
 
 const mainRouter = createBrowserRouter([
