@@ -37,9 +37,9 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-md w-full max-w-sm p-8 flex flex-col items-center">
 
-        {/* Logo / Brand */}
+        {/* Logo */}
         <div className="mb-6">
-          <img src="/src/icons/HireMe.png" alt="HireMe" className="h-16 w-auto object-contain" />
+          <img src="/src/icons/HireMe.png" alt="HireMe" className="h-30 w-auto object-contain" />
         </div>
 
         {/* Title */}
