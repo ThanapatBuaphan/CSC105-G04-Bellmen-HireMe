@@ -30,8 +30,8 @@ export default function CreateAcc2com() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       newErrors.email = "Invalid email format.";
     if (!form.password) newErrors.password = "Password is required.";
-    else if (form.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters.";
+    else if (form.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters.";
     if (!form.confirmPassword) newErrors.confirmPassword = "Please confirm your password.";
     else if (form.password !== form.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match.";
@@ -131,7 +131,7 @@ export default function CreateAcc2com() {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                placeholder="Min. 8 characters"
+                placeholder="Min. 6 characters"
                 className={`w-full px-4 py-3 pr-11 rounded-xl border text-sm outline-none transition-all
                   ${errors.password
                     ? "border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200"
