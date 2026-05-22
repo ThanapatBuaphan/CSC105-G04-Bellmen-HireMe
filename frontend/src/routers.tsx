@@ -20,8 +20,7 @@ import ComProfile from "./modules/Profile/pages/comProfile";
 //Job seeker
 import JobHome from "./modules/easyApplication/pages/jobHomePage";
 import JobApplicants from "./modules/easyApplication/pages/jobApplicantsPage";
-import JobProfile from "./pages/JobSeekerSide/jobProfile";
-import JobProfileEdit from "./pages/JobSeekerSide/jobProfileEdit";
+import JobProfile from "./modules/Profile/pages/jobProfile";
 
 
 

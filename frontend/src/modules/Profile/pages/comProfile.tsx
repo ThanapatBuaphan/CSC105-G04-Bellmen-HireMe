@@ -4,13 +4,12 @@ import { userService } from "../../../services/user.service";
 import api from "../../../services/api";
 import ProfileBanner from "../components/ProfileBanner";
 import PageHeader from "../../../components/PageHeader";
-import type { CompanyMember, CompanyPost } from "../types/profile.types";
+import type { CompanyMember } from "../types/profile.types";
 
 export default function ComProfile() {
   const { profile, setProfile, loading } = useProfile();
 
   const [members, setMembers] = useState<CompanyMember[]>([]);
-  const [posts, setPosts] = useState<CompanyPost[]>([]);
   const [fullLoading, setFullLoading] = useState(true);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +28,6 @@ export default function ComProfile() {
       const { data } = await api.get("/api/company/profile");
       const c = data.company;
       setMembers(c.members ?? []);
-      setPosts(c.posts ?? []);
       const parts = [c.location?.address, c.location?.city, c.location?.postalCode, c.location?.country].filter(Boolean);
       setLocationText(parts.join(", "));
       setForm({
