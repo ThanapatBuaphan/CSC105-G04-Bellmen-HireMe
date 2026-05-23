@@ -298,3 +298,14 @@ export async function deleteWorkExperience(req: Request, res: Response, next: Ne
     res.json({ message: "Work experience deleted." });
   } catch (err) { next(err); }
 }
+
+export async function getUserAccount(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const account = await prisma.account.findUnique({
+      where: { id: req.user!.accountId },
+      select: { email: true },
+    });
+    if (!account) { res.status(404).json({ message: "Account not found." }); return; }
+    res.json({ email: account.email });
+  } catch (err) { next(err); }
+}

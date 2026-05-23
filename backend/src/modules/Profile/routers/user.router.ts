@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authenticate, requireRole } from "../../../middlewares/auth";
 import { uploadUserProfile } from "../../../middlewares/upload";
 import {
+  getUserAccount,
   getUserProfile,
   getUserProfileById,
   updateUserProfile,
@@ -16,6 +17,7 @@ import {
 
 const router = Router();
 
+router.get("/account", authenticate, getUserAccount);
 router.get("/profile", authenticate, requireRole("user"), getUserProfile);
 router.get("/profile/:id", getUserProfileById);
 

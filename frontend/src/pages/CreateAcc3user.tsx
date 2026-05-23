@@ -112,11 +112,11 @@ export default function CreateAcc3user() {
         email: prevData.email || "",
         password: prevData.password || "",
         confirmPassword: prevData.confirmPassword || "",
-        gender: "unspecified",
-        phoneNumber: "",
+        gender: prevData.gender || "",
+        phoneNumber: prevData.phoneNumber || "",
       });
       if (prevData.address || prevData.city || prevData.country) {
-      await userService.upsertCompanyLocation({
+      await userService.upsertUserLocation({
       address: prevData.address,
       city: prevData.city,
       postalCode: prevData.zipCode,
