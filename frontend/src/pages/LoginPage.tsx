@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/auth.service";
+import { login } from "../services/auth.service"
+import { useProfile } from "../context/ProfileContext";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState("");
+  const { refetchProfile } = useProfile();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,11 +38,8 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const data = await login({ email: form.email, password: form.password });
-      if (data.role === "user") {
-        navigate("/jobHome");
-      } else {
-        navigate("/comHome");
-      }
+       await refetchProfile();
+        navigate("/home");
     } catch (err: any) {
       const message = err?.response?.data?.error || "Login failed. Please try again.";
       setApiError(message);

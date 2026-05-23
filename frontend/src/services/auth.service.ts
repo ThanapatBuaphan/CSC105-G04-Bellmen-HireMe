@@ -83,4 +83,25 @@ export const authService = {
   getRole(): "user" | "company" | null {
     return localStorage.getItem("role") as "user" | "company" | null;
   },
+
+  checkEmailAvailable: async (email: string): Promise<boolean> => {
+    try {
+      const res = await api.get(`/auth/check-email?email=${encodeURIComponent(email)}`);
+      return res.data.available;
+    } catch { return true; }
+  },
+
+  checkPhoneAvailable: async (phone: string): Promise<boolean> => {
+    try {
+      const res = await api.get(`/auth/check-phone?phone=${encodeURIComponent(phone)}`);
+      return res.data.available;
+    } catch { return true; }
+  },
+
+  checkCompanyNameAvailable: async (name: string): Promise<boolean> => {
+  try {
+    const res = await api.get(`/auth/check-company-name?name=${encodeURIComponent(name)}`);
+    return res.data.available;
+  } catch { return true; }
+},
 };

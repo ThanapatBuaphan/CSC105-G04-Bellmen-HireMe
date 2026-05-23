@@ -101,6 +101,7 @@ export default function CreateAcc3user() {
 
   // ── Submit ──
   const handleCreate = async () => {
+    console.log("prevData:", prevData);
     setApiError("");
     setIsLoading(true);
     try {
@@ -113,7 +114,7 @@ export default function CreateAcc3user() {
         gender: "unspecified",
         phoneNumber: "",
       });
-      navigate("/");
+      navigate("/LoginPage");
     } catch (err: any) {
       const message = err?.response?.data?.error || "Registration failed. Please try again.";
       setApiError(message);
@@ -401,10 +402,20 @@ export default function CreateAcc3user() {
         )}
 
         {/* Create Button */}
-        <button
+        <div className="mt-4 w-full flex gap-3">
+          <button
+            onClick={() => navigate("/CreateAcc2user", { state: { formData: prevData } })}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-600 text-base border border-gray-300 hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l-7 7 7 7" />
+            </svg>
+            Back
+          </button>
+          <button
           onClick={handleCreate}
           disabled={isLoading}
-          className={`mt-4 w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-white text-base transition-all duration-200
+          className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-white text-base transition-all duration-200
             ${isLoading
               ? "bg-blue-300 cursor-not-allowed"
               : "bg-[#0455E2] hover:bg-blue-700 active:scale-95 shadow-md shadow-blue-200"
@@ -427,12 +438,13 @@ export default function CreateAcc3user() {
             </>
           )}
         </button>
+        </div>
 
         {/* Sign In Link */}
         <p className="mt-5 text-sm text-gray-500">
           Already have an account?{" "}
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/LoginPage")}
             className="text-[#0455E2] font-semibold hover:underline"
           >
             Sign in

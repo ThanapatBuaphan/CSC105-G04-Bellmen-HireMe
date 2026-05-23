@@ -14,6 +14,29 @@ const generateToken = (account: Account, profileId: number): string => {
   return jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: "7d" });
 };
 
+// GET /auth/check-email?email=...
+export async function checkEmail(req: Request, res: Response): Promise<void> {
+  const { email } = req.query as { email: string };
+  if (!email) { res.status(400).json({ available: false }); return; }
+  const existing = await prisma.account.findUnique({ where: { email } });
+  res.json({ available: !existing });
+}
+ 
+// GET /auth/check-phone?phone=...
+export async function checkPhone(req: Request, res: Response): Promise<void> {
+  const { phone } = req.query as { phone: string };
+  if (!phone) { res.status(400).json({ available: false }); return; }
+  const existing = await prisma.user.findFirst({ where: { phoneNumber: phone } });
+  res.json({ available: !existing });
+}
+
+export async function checkCompanyName(req: Request, res: Response): Promise<void> {
+  const { name } = req.query as { name: string };
+  if (!name) { res.status(400).json({ available: false }); return; }
+  const existing = await prisma.company.findFirst({ where: { companyName: name } });
+  res.json({ available: !existing });
+}
+
 // POST /auth/register/user
 export async function userRegister(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -70,6 +93,11 @@ export async function companyRegister(req: Request, res: Response, next: NextFun
         if (existingAccount) {
             res.status(409).json({ error: "Email already in use" });
             return;
+        }
+        const existingCompany = await prisma.company.findFirst({ where: { companyName } });
+        if (existingCompany) {
+           res.status(409).json({ error: "Company name already in use" });
+           return;
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

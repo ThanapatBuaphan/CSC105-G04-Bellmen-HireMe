@@ -8,10 +8,10 @@ export default function CreateAcc3com() {
   const prevData = location.state?.formData || {};
 
   const [form, setForm] = useState({
-    founded: "",
-    companySize: "",
-    address: "",
-    description: "",
+    founded: prevData.founded || "",
+    companySize: prevData.companySize || "",
+    address: prevData.address || "",
+    description: prevData.description || "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -23,29 +23,12 @@ export default function CreateAcc3com() {
   ) => {
     const { name, value } = e.target;
 
-    if (name === "founded") {
-      // Auto-format DD/MM/YYYY
-      const digits = value.replace(/\D/g, "");
-      let formatted = digits;
-      if (digits.length >= 3 && digits.length <= 4) {
-        formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
-      } else if (digits.length >= 5) {
-        formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
-      }
-      setForm((prev) => ({ ...prev, founded: formatted }));
-      setErrors((prev) => ({ ...prev, founded: "" }));
-      return;
-    }
-
     setForm((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (form.founded && !/^\d{2}\/\d{2}\/\d{4}$/.test(form.founded)) {
-      newErrors.founded = "Please use DD/MM/YYYY format.";
-    }
     if (form.companySize && isNaN(Number(form.companySize))) {
       newErrors.companySize = "Must be a number.";
     }
@@ -66,7 +49,7 @@ export default function CreateAcc3com() {
         password: prevData.password || "",
         companyName: prevData.companyName || "",
       });
-      navigate("/");
+      navigate("/LoginPage");
     } catch (err: any) {
       const message = err?.response?.data?.error || "Registration failed. Please try again.";
       setApiError(message);
@@ -125,23 +108,16 @@ export default function CreateAcc3com() {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="date"
                   name="founded"
                   value={form.founded}
                   onChange={handleChange}
-                  placeholder="DD/MM/YYYY"
-                  maxLength={10}
-                  className={`w-full px-4 py-3 pr-10 rounded-xl border text-sm outline-none transition-all
+                  className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all
                     ${errors.founded
                       ? "border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200"
                       : "border-gray-200 bg-gray-50 focus:border-[#0455E2] focus:ring-2 focus:ring-blue-100"
                     }`}
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </span>
               </div>
               {errors.founded && (
                 <p className="text-red-500 text-xs mt-1">{errors.founded}</p>
@@ -176,21 +152,6 @@ export default function CreateAcc3com() {
             </div>
           </div>
 
-          {/* Company Address */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Company Address
-            </label>
-            <input
-              type="text"
-              name="address"
-              value={form.address}
-              onChange={handleChange}
-              placeholder="e.g. 123 Sukhumvit Rd, Bangkok, Thailand"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm outline-none focus:border-[#0455E2] focus:ring-2 focus:ring-blue-100 transition-all"
-            />
-          </div>
-
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -218,38 +179,49 @@ export default function CreateAcc3com() {
         )}
 
         {/* Create Button */}
-        <button
-          onClick={handleCreate}
-          disabled={isLoading}
-          className={`mt-4 w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-white text-base transition-all duration-200
-            ${isLoading
-              ? "bg-blue-300 cursor-not-allowed"
-              : "bg-[#0455E2] hover:bg-blue-700 active:scale-95 shadow-md shadow-blue-200"
-            }`}
-        >
-          {isLoading ? (
-            <>
-              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-              </svg>
-              Creating...
-            </>
-          ) : (
-            <>
-              Create Account
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </>
-          )}
-        </button>
+        <div className="mt-4 w-full flex gap-3">
+          <button
+            onClick={() => navigate("/CreateAcc2com", { state: { formData: { ...prevData, ...form } } })}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-600 text-base border border-gray-300 hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 12H5m7-7l-7 7 7 7" />
+            </svg>
+            Back
+          </button>
+          <button
+            onClick={handleCreate}
+            disabled={isLoading}
+            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-white text-base transition-all duration-200
+              ${isLoading
+                ? "bg-blue-300 cursor-not-allowed"
+                : "bg-[#0455E2] hover:bg-blue-700 active:scale-95 shadow-md shadow-blue-200"
+              }`}
+          >
+            {isLoading ? (
+              <>
+                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                </svg>
+                Creating...
+              </>
+            ) : (
+              <>
+                Create Account
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
 
         {/* Sign In Link */}
         <p className="mt-5 text-sm text-gray-500">
           Already have an account?{" "}
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/LoginPage")}
             className="text-[#0455E2] font-semibold hover:underline"
           >
             Sign in
